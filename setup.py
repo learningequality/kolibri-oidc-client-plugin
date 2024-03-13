@@ -55,7 +55,7 @@ setup(
     package_dir={'kolibri_oidc_client_plugin': 'kolibri_oidc_client_plugin'},
     include_package_data=True,
     license='MIT',
-    install_requires=['mozilla-django-oidc==1.2.4', 'kolibri>=0.15'],
+    install_requires=['mozilla-django-oidc==4.0.1', 'kolibri>=0.15'],
     extras_require={
         'dev': [
             'setuptools',
