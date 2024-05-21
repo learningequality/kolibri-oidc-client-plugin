@@ -14,6 +14,17 @@ class OIDCKolibriAuthenticationBackend(OIDCAuthenticationBackend):
         )  # according to https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims
         if not username:  # according to OLIP implementation
             username = claim.get("username")
+
+        # If claim is from Google OAuth (has email and sub).
+        if not username and ('email' in claim and 'sub' in claim):
+            # Clean email from non-alphanumeric chars to pass the username validation (result is no longer unique).
+            clean_email = ''.join([c if c.isalnum() else '_' for c in claim["email"]])
+            # Concatenate cleaned email and sub to form a unique username. Subs are GUIDs.
+            # See: Sub description https://openid.net/specs/openid-connect-core-1_0.html#IDToken
+            email_w_sub = "{}_{}".format(clean_email, claim["sub"])
+            # Truncate to 30 chars to match Kolibri's username length limit.
+            username = email_w_sub[:30]
+
         return username
 
     def get_or_create_user(self, access_token, id_token, payload):
