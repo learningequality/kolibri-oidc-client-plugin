@@ -1,3 +1,4 @@
+# This repository has been archived! The Kolibri plugin has been moved to the [Kolibri monorepo](https://github.com/learningequality/kolibri/tree/develop/python_packages/kolibri-oidc-client-plugin)
 
 # Kolibri OpenID Connect Client plugin
 
